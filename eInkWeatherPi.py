@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 from PIL import Image, ImageDraw, ImageFont
 from waveshare_epd import epd2in13b_V4
 
-API_KEY = "9eaaa77d7ee96b1322549f1cf8b5c4dc"
+API_KEY = "YOUR API KEY FROM OPENWEATHER"
 
 LOCATIONS = [
     {"name": "Izmir", "lat": 38.4192, "lon": 27.1287},
