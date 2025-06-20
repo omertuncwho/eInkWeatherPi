@@ -43,3 +43,6 @@ Boot your Raspberry Pi and run:
 
 ```bash
 sudo raspi-config
+
+**----**
+### 3. Connect the e-Ink Display
