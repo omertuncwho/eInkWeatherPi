@@ -13,7 +13,7 @@ LOCATIONS = [
     {"name": "Izmir", "lat": 38.4192, "lon": 27.1287},
     {"name": "Ayrancilar", "lat": 38.2036, "lon": 27.0641},
     {"name": "Cesme", "lat": 38.3232, "lon": 26.3057},
-    {"name": "Cinardibi", "lat": 38.1531, "lon": 28.1293}
+   {"name": "Cinardibi", "lat": 38.1543, "lon": 28.1290}
 ]
 
 
