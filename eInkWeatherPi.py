@@ -7,7 +7,7 @@ from zoneinfo import ZoneInfo
 from PIL import Image, ImageDraw, ImageFont
 from waveshare_epd import epd2in13b_V4
 
-API_KEY = "YOUR API KEY FROM OPENWEATHER"
+API_KEY = "YOUR API KEY"
 
 LOCATIONS = [
     {"name": "Izmir", "lat": 38.4192, "lon": 27.1287},
@@ -15,6 +15,7 @@ LOCATIONS = [
     {"name": "Cesme", "lat": 38.3232, "lon": 26.3057},
     {"name": "Cinardibi", "lat": 38.1531, "lon": 28.1293}
 ]
+
 
 def get_weather_and_aqi(lat, lon):
     weather_url = f"https://api.openweathermap.org/data/2.5/weather?lat={lat}&lon={lon}&appid={API_KEY}&units=metric&lang=en"
@@ -122,7 +123,10 @@ def draw_display(name, desc, icon, temp, humidity, pressure, wind_speed, wind_di
     draw_red.text((x + 150, y), "N/A", font=font_regular, fill=0)
     y += line_spacing
 
-    draw_black.text((x, y), f"Wind: {wind_speed} m/s {wind_dir}  AQI: {aqi}", font=font_regular, fill=0)
+    draw_black.text((x, y), "Wind: ", font=font_bold, fill=0)
+    draw_black.text((x + 45, y), f"{wind_speed} m/s {wind_dir}", font=font_regular, fill=0)
+    draw_black.text((x + 135, y), "AQI: ", font=font_bold, fill=0)
+    draw_black.text((x + 170, y), aqi, font=font_regular, fill=0)
     y += line_spacing
 
     draw_black.text((x, y), "Local Time: ", font=font_bold, fill=0)
@@ -136,18 +140,6 @@ def draw_display(name, desc, icon, temp, humidity, pressure, wind_speed, wind_di
     draw_red.text((x, y), "IP: ", font=font_bold, fill=0)
     draw_black.text((x + 30, y), ip, font=font_ip, fill=0)
     draw_red.text((x + 150, y), f"WiFi: {wifi_status}", font=font_ip, fill=0)
-
-    try:
-        icon_file = f"/tmp/{icon}.png"
-        if not os.path.exists(icon_file):
-            icon_url = f"http://openweathermap.org/img/wn/{icon}@2x.png"
-            r = requests.get(icon_url)
-            with open(icon_file, 'wb') as f:
-                f.write(r.content)
-        icon_img = Image.open(icon_file).convert("1").resize((40, 40))
-        blackimage.paste(icon_img, (epd.height - 42, 0))
-    except Exception as e:
-        print("Icon error:", e)
 
     blackimage = blackimage.rotate(180)
     redimage = redimage.rotate(180)
